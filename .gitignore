@@ -6,6 +6,7 @@
 *$py.class
 dist
 build
+xlform.egg-info
 __pycache__
 .pytest_cache
 env

@@ -11,3 +11,4 @@ class ValidationError(Exception):
 
     def __repr__(self):
         return '{}(code={}, msg={})'.format(self.__class__.__name__, self.code, self.msg)
+

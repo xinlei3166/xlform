@@ -12,7 +12,7 @@ from .exceptions import ValidationError
 
 
 class Field:
-    default_error_messages = {'required': 'This field is required.'}
+    default_error_messages = {'required': 'This field is required'}
     default_validators = []
     empty_values = (None, '', [], (), {})
 
@@ -21,7 +21,8 @@ class Field:
         messages = {}
         for c in reversed(self.__class__.__mro__):
             messages.update(getattr(c, 'default_error_messages', {}))
-        messages.update(error_messages or {})
+        if error_messages:
+            messages['invalid'] = error_messages
         self.error_messages = messages
         self.validators = list(itertools.chain(self.default_validators, validators))
 
@@ -33,7 +34,7 @@ class Field:
         if value in self.empty_values and self.required:
             errors.append(self.error_messages['required'])
         if errors:
-            raise ValidationError(msg=errors)
+            raise ValidationError(msg=','.join(errors))
 
     def run_validators(self, value):
         if value in self.empty_values:
@@ -45,7 +46,7 @@ class Field:
             except ValidationError as exc:
                 errors.append(exc.msg)
         if errors:
-            raise ValidationError(msg=errors)
+            raise ValidationError(msg=','.join(errors))
 
     def clean(self, value):
         value = self.to_python(value)
@@ -150,7 +151,7 @@ class NullBooleanField(BooleanField):
 
 class IntegerField(Field):
     default_error_messages = {
-        'invalid': 'Enter a whole number.'
+        'invalid': 'Enter a whole number'
     }
     re_decimal = re.compile(r'\.0*\s*$')
 
@@ -175,7 +176,7 @@ class IntegerField(Field):
 
 class FloatField(IntegerField):
     default_error_messages = {
-        'invalid': 'Enter a number.',
+        'invalid': 'Enter a number',
     }
 
     def to_python(self, value):
@@ -198,7 +199,7 @@ class FloatField(IntegerField):
 
 class DecimalField(IntegerField):
     default_error_messages = {
-        'invalid': 'Enter a Decimal value.',
+        'invalid': 'Enter a Decimal value',
     }
 
     def __init__(self, *, max_value=None, min_value=None, max_digits=None, decimal_places=None, **kwargs):
