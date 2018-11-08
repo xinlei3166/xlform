@@ -8,13 +8,14 @@ from .exceptions import ValidationError
 
 
 class BaseValidator:
-    msg = 'invalid value -> {}'
+    msg = 'value limit -> {}'
 
     def __init__(self, limit_value, msg=None):
         self.limit_value = limit_value
         if msg:
             self.msg = msg
         else:
+            print(self.msg)
             self.msg = self.msg.format(self.limit_value)
 
     def __call__(self, value):
@@ -47,7 +48,7 @@ class MinLengthValidator(BaseValidator):
 
 
 class MaxLengthValidator(BaseValidator):
-    err_msg = 'max_length -> {}'
+    msg = 'max_length -> {}'
 
     def compare(self, a, b):
         return a > b
@@ -119,8 +120,6 @@ class RegexValidator:
         self.regex = regex
         if msg:
             self.msg = msg
-        else:
-            self.msg = self.msg
 
     def __call__(self, value):
         reg = self.regex
@@ -134,8 +133,6 @@ class PhoneValidator:
     def __init__(self, msg=None):
         if msg:
             self.msg = msg
-        else:
-            self.msg = self.msg
 
     def __call__(self, value):
         reg = re.compile(r'^1[3456789]\d{9}$')
@@ -152,8 +149,6 @@ class EmailValidator:
     def __init__(self, msg=None):
         if msg:
             self.msg = msg
-        else:
-            self.msg = self.msg
 
     def __call__(self, value):
         reg = re.compile(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
@@ -170,8 +165,6 @@ class UUIDValidator:
     def __init__(self, msg=None):
         if msg:
             self.msg = msg
-        else:
-            self.msg = self.msg
 
     def __call__(self, value):
         if not isinstance(value, uuid.UUID):

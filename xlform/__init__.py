@@ -43,7 +43,7 @@ Usages:
 """
 
 __author__ = 'junxi'
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 from xlform.forms import Form
 from xlform.fields import *

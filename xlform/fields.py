@@ -30,11 +30,8 @@ class Field:
         return value
 
     def validate(self, value):
-        errors = []
         if value in self.empty_values and self.required:
-            errors.append(self.error_messages['required'])
-        if errors:
-            raise ValidationError(msg=','.join(errors))
+            raise ValidationError(msg=self.error_messages['required'])
 
     def run_validators(self, value):
         if value in self.empty_values:

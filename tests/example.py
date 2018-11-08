@@ -15,21 +15,21 @@ class NF(Form):
     uuid = UUIDField(required=False)
     boolean = BooleanField(required=False)
     integer = IntegerField(max_value=11)
-    ft = FloatField(max_value=12)
+    ft = FloatField(max_value=12, error_messages='asdsad')
     dc = DecimalField(max_digits=3, decimal_places=1, required=False)
 
 
 data = {
-    # 'a': '12',
-    'b': '123',
+    'a': '12',
+    'b': '22',
     'phone': '16666666666',
     'email': '16666666666@qq.com',
     'reg': '16666666666',
     'uuid': '998a281c-e257-11e8-b428-8c85904e5604',
     'boolean': 0,
     'integer': '11',
-    'ft': 'a11.1111',
-    'dc': '1111.011'
+    'ft': '12.00',
+    'dc': '11.0'
 }
 
 nf = NF(data)
