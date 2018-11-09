@@ -43,7 +43,7 @@ class Field:
             except ValidationError as exc:
                 errors.append(exc.msg)
         if errors:
-            raise ValidationError(msg=','.join(errors))
+            raise ValidationError(msg=', '.join(errors))
 
     def clean(self, value):
         value = self.to_python(value)

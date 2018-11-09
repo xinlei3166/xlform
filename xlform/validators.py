@@ -15,7 +15,6 @@ class BaseValidator:
         if msg:
             self.msg = msg
         else:
-            print(self.msg)
             self.msg = self.msg.format(self.limit_value)
 
     def __call__(self, value):
